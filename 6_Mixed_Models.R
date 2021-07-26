@@ -89,7 +89,7 @@ jitter <- position_jitter(width = 0.2, height = 0.01)
 #### TREE ABUNDANCE PLOT ####
 
 #assigning axis labels for plot
-ab.labs<- labs(x= "", y= "Tree Abundance")
+ab.labs<- labs(x= "Green Space Type", y= "Tree Abundance")
 #logging raw abundance values and adding as a new column since model used logged transformed data
 LMM.Meta$loggedabund<- log(LMM.Meta$Abund)
 LMM.Meta
@@ -128,10 +128,10 @@ final.sr
 #### SPECIES EVENNESS (PIE) PLOT ####
 
 #assigning axis labels
-pie.labs<- labs(x= "", y= "Evenness")
+pie.labs<- labs(x= "Green Space Type", y= "Evenness")
 
 #subsetting parcel scale species evenness (PIE) means for parks and institutions
-pie.parcel.means<- pie.site.means[-c(24:221),]
+pie.parcel.means<- pie.means[-c(24:221),]
 #adding GS type to parcel scale means for plotting
 pie.parcel.means$GS.Type<- c("Inst","Inst","Inst","Inst","Inst","Inst","Inst","Inst","Inst","Inst","Inst","Inst","Inst","Inst","Inst","Inst","Park","Park","Park","Park","Park","Park","Park")
 

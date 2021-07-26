@@ -1,21 +1,39 @@
 #load packages
-Packages.2 <- c("sm", "ggplot2", "tidyr", "ggpubr", "tibble", "reshape2", "plyr", "dplyr")
+Packages.2 <- c("ggplot2", "tidyr", "ggpubr", "tibble", "reshape2", "plyr", "dplyr", "janitor")
 lapply(Packages.2, library, character.only = TRUE)
 
-#load metadata file
+#load metadata file and max dbh file
 metacsv<- read.csv("Metadata_GS_CU.csv")
+max.dbh<- read.csv("Max.DBH.csv")
 
 ####DBH Distribution
 #create kernel density plot to show the distribution of DBH across the four green space types 
 #### DBH Distribution ####
-##SCALED ALL GREEN SPACE TYPES
+##Scaled for all green space types
 gs.dbh<- ggplot(data= metacsv,
                 mapping = aes(x= DBH.Round, group = GS.Type, col= GS.Type))
 
-gs.dbh<-gs.dbh + geom_density(alpha= 0.02, mapping = aes(y= ..count..)) 
-        +theme_classic() + xlim(c(0,125)) + xlab("DBH (cm)")+ ylab("Density")+ 
+gs.dbh<-gs.dbh + geom_density(alpha= 0.02, mapping = aes(y= ..count..)) +
+        theme_classic() + xlim(c(0,125)) + xlab("DBH (cm)")+ ylab("Density")+ 
         theme(legend.position = "top", axis.title = element_text(face= "bold", size= 14))
 gs.dbh
+
+#formatting max DBH file and combining it with tree data file
+#combine two dataframes to include max DBH values
+gs.max.dbh<- left_join(metacsv, max.dbh, by= c("Species.Code" = "Species.Code"))
+#converting columns to numerics rather than factors and removing rows that have empty values 
+gs.max.dbh$Max.DBH <- as.numeric(as.character(gs.max.dbh$Max.DBH))  
+#removing NA values from dataframe for plotting
+gs.max.dbh<- gs.max.dbh %>% drop_na()
+gs.max.dbh
+
+gs.maxdbh<- ggplot(data= gs.max.dbh,
+                mapping = aes(x= Max.DBH, group = GS.Type, col= GS.Type))
+
+gs.maxdbh.plot<-gs.maxdbh + geom_density(alpha= 0.02, mapping = aes(y= ..count..)) +
+  theme_classic() + xlim(c(0,110)) + xlab("Maximum DBH (cm)")+ ylab("Density")+ 
+  theme(legend.position = "top", axis.title = element_text(face= "bold", size= 14))
+gs.maxdbh.plot
 
 ##wrapping to create 4 plots 
 #gs.dbh + geom_density(alpha= 0.02, mapping = aes(y= ..count..)) +theme_classic() + xlim(c(0,125)) + xlab("DBH (cm)")+ ylab("Density") + facet_grid(cols = vars(GS.Type)) 
