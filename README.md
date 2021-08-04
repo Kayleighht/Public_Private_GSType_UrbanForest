@@ -3,11 +3,13 @@ In preparation for submission
 
 
 * Authors:
-+ [Kayleigh Hutt-Taylor]
-+ [Carly Ziter] 
+  + [Kayleigh Hutt-Taylor]
+  + [Carly Ziter] 
 
 
 This repository contains the code and data accompanying the paper "Private trees contribute uniquely to urban tree diversity and structure: a community-based study of the urban forest in Montreal" (In Prep.). 
+
+
 R scripts are organized in `Scripts/` and are numbered in corresponding order 1-7, raw data can be found in `Input/`, figures used in the manuscript can be found in `Figures/`, and model output tables can be found in `Output/`.
 
 Package dependencies include: `vegan`, `lmtest`, `psych`, `dplyr`, `mobr`, `benthos`, `ggplot2`, `iNEXT`.
