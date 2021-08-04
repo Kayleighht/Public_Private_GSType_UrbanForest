@@ -1,12 +1,10 @@
-# Public_Private_GSType_UrbanForest
-
-#Private trees contribute uniquely to urban tree diversity and structure: a community-based study of the urban forest in Montreal
+# Private trees contribute uniquely to urban tree diversity and structure: a community-based study of the urban forest in Montreal
 In preparation for submission 
 
 
-*Authors:
-+ Kayleigh Hutt-Taylor
-+ Carly Ziter 
+* Authors:
++ [Kayleigh Hutt-Taylor]
++ [Carly Ziter] 
 
 
 This repository contains the code and data accompanying the paper "Private trees contribute uniquely to urban tree diversity and structure: a community-based study of the urban forest in Montreal" (In Prep.). 
