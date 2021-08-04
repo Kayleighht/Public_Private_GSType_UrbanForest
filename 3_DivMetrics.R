@@ -1,6 +1,6 @@
 #### Load Packages
-Packages.4 <- c("plyr", "psych", "mobr", "benthos")
-lapply(Packages.4, library, character.only = TRUE)
+Packages.3 <- c("plyr", "psych", "mobr", "benthos")
+lapply(Packages.3, library, character.only = TRUE)
 
 ### In this script I calculate three metrics based on urban tree data: species richness, tree abundance and species evenness (PIE)
 ## I do this for metadata and each green space type (Institutional, Park, Private Yard, Street ROW)

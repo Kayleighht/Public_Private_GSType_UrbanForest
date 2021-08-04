@@ -156,5 +156,5 @@ sr.site.means<- LMM.Meta %>%
   summarise(
     sr.site= mean(SR))
 sr.site.means
-write.csv(sr.site.means, "/home/kayleighhutttaylor/sr.site.means.csv", row.names = FALSE)
+write.csv(sr.site.means, "/home/kayleighhutttaylor/Ch. 1 Thesis Analysis/Output/sr.site.means.csv", row.names = FALSE)
 

@@ -1,11 +1,11 @@
 #### LINEAR MIXED MODELS #### 
 
 #load packages
-Packages <- c("broom.mixed", "ggplot2", "lme4", "ggpubr", "lmerTest", "sjPlot", "car", "effects", "multcomp", "dplyr", "glmmTMB")
-lapply(Packages, library, character.only = TRUE)
+Packages.6 <- c("broom.mixed", "ggplot2", "lme4", "ggpubr", "lmerTest", "sjPlot", "car", "effects", "multcomp", "dplyr", "glmmTMB")
+lapply(Packages.6, library, character.only = TRUE)
 
 #read in metadata file
-LMM.Meta<- read.csv(file.choose())
+LMM.Meta<- read.csv("LMM_META_FINAL.csv")
 #convert species richness values to numeric (rather than factor) for models
 LMM.Meta$SR<-as.numeric(LMM.Meta$SR)
 class(LMM.Meta$SR)
@@ -26,6 +26,11 @@ qqline(residuals(model.gs.sr))
 
 #check effect of green space type on species richness using model outputs
 Anova(model.gs.sr)
+#push out model summary as csv file for plotting
+tbl.1 <- broom::tidy(model.gs.sr)
+tbl.1
+write.csv(tbl.1, "/home/kayleighhutttaylor/Ch. 1 Thesis Analysis/Output/Sr.Model.Sum.csv")
+
 #tukey test to check pairwise comparisons of species richness of each green space type
 tukey.test<-Pairwise.sr<-glht(model.gs.sr, mcp(GS.Type = "Tukey")) 
 #summarizing pairwise differences across green space types
@@ -47,6 +52,10 @@ summary(model.gs.log)
 ##Anova to test the effect of green space type on tree abundance
 Anova(model.gs.log)
 
+#push out model summary as csv file for plotting
+tbl.2 <- broom::tidy(model.gs.log)
+write.csv(tbl.2, "/home/kayleighhutttaylor/Ch. 1 Thesis Analysis/Output/AB.Model.Sum.csv")
+
 #pairwise comparisons
 Pairwise.ab<-glht(model.gs.log, mcp(GS.Type = "Tukey")) 
 summary(Pairwise.ab)
@@ -65,6 +74,9 @@ shapiro.test(resid(model.gs.ev))
 
 ##Anova to test the effect of green space type on species evenness
 Anova(model.gs.ev)
+#push out model summary as csv file for plotting
+tbl.3 <- broom::tidy(model.gs.ev)
+write.csv(tbl.3, "/home/kayleighhutttaylor/Ch. 1 Thesis Analysis/Output/PIE.Model.Sum.csv")
 
 #pairwise comparison
 Pairwise.ev<-glht(model.gs.ev, mcp(GS.Type = "Tukey")) 

@@ -1,10 +1,11 @@
 #load packages
-Packages.2 <- c("ggplot2", "tidyr", "ggpubr", "tibble", "reshape2", "plyr", "dplyr", "janitor")
-lapply(Packages.2, library, character.only = TRUE)
+Packages.5 <- c("ggplot2", "tidyr", "ggpubr", "tibble", "reshape2", "plyr", "dplyr", "janitor")
+lapply(Packages.5, library, character.only = TRUE)
 
 #load metadata file and max dbh file
 metacsv<- read.csv("Metadata_GS_CU.csv")
 max.dbh<- read.csv("Max.DBH.csv")
+LMM.Meta<- read.csv("LMM_META_FINAL.csv")
 
 ####DBH Distribution
 #create kernel density plot to show the distribution of DBH across the four green space types 
@@ -31,17 +32,14 @@ gs.maxdbh<- ggplot(data= gs.max.dbh,
                 mapping = aes(x= Max.DBH, group = GS.Type, col= GS.Type))
 
 gs.maxdbh.plot<-gs.maxdbh + geom_density(alpha= 0.02, mapping = aes(y= ..count..)) +
-  theme_classic() + xlim(c(0,110)) + xlab("Maximum DBH (cm)")+ ylab("Density")+ 
+  theme_classic() + xlim(c(0,115)) + xlab("Maximum DBH (cm)")+ ylab("Density")+ 
   theme(legend.position = "top", axis.title = element_text(face= "bold", size= 14))
 gs.maxdbh.plot
 
 ##wrapping to create 4 plots 
 #gs.dbh + geom_density(alpha= 0.02, mapping = aes(y= ..count..)) +theme_classic() + xlim(c(0,125)) + xlab("DBH (cm)")+ ylab("Density") + facet_grid(cols = vars(GS.Type)) 
 
-
 #### BASAL AREA PER SITE ####
-library(dplyr)
-library(ggplot2)
 Site.Means.BA <- metacsv %>%
   group_by(Subsite.Code) %>%
   summarise(
@@ -54,8 +52,7 @@ GS.BA.means<- metacsv %>%
     mean = mean(Basal.Area),
     sd= sd(Basal.Area))
 
-library("writexl")
-write_xlsx(Site.Means.BA, "/home/kayleighhutttaylor/site.means.ba.xlsx")
+write.csv(Site.Means.BA, "/home/kayleighhutttaylor/Ch. 1 Thesis Analysis/Output/site.means.ba.csv")
 basal.area.labs<- labs(x= "Green Space Type", y= "Basal Area (m2)")
 
 base.basal<-ggplot(LMM.Meta, aes(GS.Type, Basal.Area))
