@@ -1,14 +1,13 @@
 ### Load Packages
 Packages.4 <- c("dplyr", "iNEXT", "ggplot2", "ggthemes", "grid")
 lapply(Packages.4, library, character.only = TRUE)
-setwd("/home/kayleighhutttaylor/Ch. 1 Thesis Analysis/Output")
 
 #### INEXT RAREFACTION CURVES ####
 #read in data matrixes
-park.matrix<- read.csv("site.park.wide.matrix.csv")
-inst.matrix<- read.csv("site.in.wide.matrix.csv")
-row.matrix<- read.csv("row.wide.matrix.csv")
-private.matrix<- read.csv("yards.sp.wide.csv")
+park.matrix<- read.csv("Output/site.park.wide.matrix.csv")
+inst.matrix<- read.csv("Output/site.in.wide.matrix.csv")
+row.matrix<- read.csv("Output/row.wide.matrix.csv")
+private.matrix<- read.csv("Output/yards.sp.wide.csv")
 
 #creating presence/absence matrixes based on green space type for INEXT formatting/conversion
 row.names(park.matrix)<-park.matrix$Var2
@@ -38,6 +37,7 @@ row.names(private.matrix)<- private.matrix$Var2
 private.matrix<- private.matrix[ ,-1]
 private.matrix[private.matrix > 0] <- 1
 private.matrix<- as.data.frame(t(private.matrix))
+private.matrix$V1 <- as.numeric(private.matrix$V1)
 private.freq<- as.incfreq(private.matrix)
 
 #labelling each green space type for input

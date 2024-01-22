@@ -3,10 +3,9 @@
 #load packages
 Packages.6 <- c("broom.mixed", "ggplot2", "lme4", "ggpubr", "lmerTest", "sjPlot", "car", "effects", "multcomp", "dplyr", "glmmTMB", "stats")
 lapply(Packages.6, library, character.only = TRUE)
-setwd("/home/kayleighhutttaylor/Ch. 1 Thesis Analysis/Input")
 
 #read in metadata file
-LMM.Meta<- read.csv("LMM_META_FINAL.csv")
+LMM.Meta<- read.csv("Input/LMM_META_FINAL.csv")
 #convert species richness values to numeric (rather than factor) for models
 LMM.Meta$SR<-as.numeric(LMM.Meta$SR)
 class(LMM.Meta$SR)
@@ -32,7 +31,7 @@ Anova(model.gs.sr)
 tbl.1 <- broom::tidy(model.gs.sr)
 tbl.1
 plot(allEffects(model.gs.sr))
-write.csv(tbl.1, "/home/kayleighhutttaylor/Ch. 1 Thesis Analysis/Output/Sr.Model.Sum.csv")
+write.csv(tbl.1, "Output/Sr.Model.Sum.csv")
 
 #tukey test to check pairwise comparisons of species richness of each green space type
 tukey.test<-Pairwise.sr<-glht(model.gs.sr, mcp(GS.Type = "Tukey")) 
@@ -60,7 +59,7 @@ confint(model.gs.log, level = 0.95)
 #push out model summary as csv file for plotting
 tbl.2 <- broom::tidy(model.gs.log)
 tbl.2
-write.csv(tbl.2, "/home/kayleighhutttaylor/Ch. 1 Thesis Analysis/Output/AB.Model.Est.csv")
+write.csv(tbl.2, "Output/AB.Model.Est.csv")
 
 #pairwise comparisons
 Pairwise.ab<-glht(model.gs.log, mcp(GS.Type = "Tukey")) 
@@ -82,7 +81,7 @@ shapiro.test(resid(model.gs.ev))
 Anova(model.gs.ev)
 #push out model summary as csv file for plotting
 tbl.3 <- broom::tidy(model.gs.ev)
-write.csv(tbl.3, "/home/kayleighhutttaylor/Ch. 1 Thesis Analysis/Output/PIE.Model.Sum.csv")
+write.csv(tbl.3, "Output/PIE.Model.Sum.csv")
 
 #pairwise comparison
 Pairwise.ev<-glht(model.gs.ev, mcp(GS.Type = "Tukey")) 
@@ -99,7 +98,7 @@ jitter <- position_jitter(width = 0.2, height = 0.01)
 
 #read in parcel-scale means csv files and convert them from 0.04ha to per hectare 
 #each of these files contain calculated mean values and standard error for parcel-scale (the scale of management/an individual park or place of worship)
-ab.means<- read.csv("ab.site.means.csv")
+ab.means<- read.csv("Output/ab.site.means.csv")
 #slice file so that it only contains parks and institutions (at parcel scale)
 ab.means<- ab.means %>% slice(1:23)
 ab.means$GS.Type<- c("Inst","Inst","Inst","Inst","Inst","Inst","Inst","Inst","Inst","Inst","Inst","Inst","Inst","Inst","Inst","Inst","Park","Park","Park","Park","Park","Park","Park")
@@ -108,7 +107,7 @@ ab.means
 ab.means$ab.ha<- (ab.means$ab.site*1.0)/0.04
 
 ##read in files with model estimates from model run above for plotting
-est.ab<-read.csv("AB.Model.Est.csv")
+est.ab<-read.csv("Output/AB.Model.Est.csv")
 #subset only necessary variables
 est.ab<-subset(est.ab, select=term:std.error)
 est.ab<-est.ab[-c(5:7),]
@@ -153,7 +152,7 @@ final.ab
 LMM.Meta$sr.ha<- (LMM.Meta$SR*1)/0.04
 
 #read in for other files and format for plotting
-est.sr<- read.csv("Sr.Model.Sum.csv")
+est.sr<- read.csv("Output/Sr.Model.Sum.csv")
 #subset only necessary variables
 est.sr<-subset(est.sr, select=term:std.error)
 est.sr<-est.sr[-c(5:7),]
@@ -169,7 +168,7 @@ est.sr$CI2<- as.numeric(c("4.55259650", "4.58690506", "5.79908822", "5.72500895"
 est.sr[,c(6,7)] <- exp(est.sr[,c(6,7)])
 est.sr
 
-sr.means<- read.csv("sr.site.means.csv")
+sr.means<- read.csv("Output/sr.site.means.csv")
 #subsetting parcel scale species richness means for parks and institutions
 sr.parcel.means<- sr.means[-c(24:221),]
 #adding GS type to parcel scale means for plotting
@@ -190,7 +189,7 @@ final.sr
 #### SPECIES EVENNESS (PIE) PLOT ####
 
 #read in summary data files
-est.pie<- read.csv("PIE.Model.Sum.csv")
+est.pie<- read.csv("Output/PIE.Model.Sum.csv")
 #subset only necessary variables
 est.pie<-subset(est.pie, select=term:std.error)
 est.pie<-est.pie[-c(5:7),]
@@ -205,7 +204,7 @@ est.pie
 est.pie$CI1<- as.numeric(c("0.24082061", "0.13320129", "0.17207884", "0.14196409"))
 est.pie$CI2<- as.numeric(c("1.17677719", "1.24829664", "1.36523348", "1.25458288"))
 
-pie.means<- read.csv("pie.site.means.csv")
+pie.means<- read.csv("Output/pie.site.means.csv")
 #subsetting parcel scale species evenness (PIE) means for parks and institutions
 pie.parcel.means<- pie.means[-c(24:221),]
 #adding GS type to parcel scale means for plotting

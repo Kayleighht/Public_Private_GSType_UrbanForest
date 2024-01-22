@@ -3,7 +3,7 @@ Packages.7 <- c("plyr", "ggplot2", "dplyr","ggthemes", "tidyr")
 lapply(Packages.7, library, character.only = TRUE)
 
 #### Plotting Scale (Site vs. Parcel) Differences in Tree Richness
-meta.sum<- read.csv("LMM_META_FINAL.csv")
+meta.sum<- read.csv("Input/LMM_META_FINAL.csv")
 
 ###Site-scale matrices and plotting
 #calculate site-scale species richness and standard error
@@ -32,7 +32,7 @@ site.scale.bar+ geom_bar(stat = 'identity', position = position_dodge(width=0.9)
 
 ###Parcel-scale matrices and plotting
 #read in institutional data
-in.data<- read.csv("Clean_Inst_Cu.csv")
+in.data<- read.csv("Input/Clean_Inst_Cu.csv")
 #create table with species abundances sorted by site code
 wide.in<- table(in.data$Species.Code., in.data$Site.Code.)
 wide.in<- as.data.frame(wide.in)
@@ -45,7 +45,7 @@ in.r<-ddply(wide.in,~Var2,function(x) {
 in.r
 
 #read in park data
-park.data<- read.csv("Clean_Park_Cu.csv")
+park.data<- read.csv("Input/Clean_Park_Cu.csv")
 #create table with species abundances sorted by site code
 wide.park<- table(park.data$Species.Code, park.data$Site.Code)
 wide.park<- as.data.frame(wide.park)

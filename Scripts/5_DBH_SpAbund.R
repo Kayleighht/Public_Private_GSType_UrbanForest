@@ -1,12 +1,11 @@
 #load packages
 Packages.5 <- c("ggplot2", "tidyr", "ggpubr", "tibble", "reshape2", "plyr", "dplyr", "janitor")
 lapply(Packages.5, library, character.only = TRUE)
-setwd("/home/kayleighhutttaylor/Ch. 1 Thesis Analysis/Input")
 
 #load metadata file and max dbh file
-metacsv<- read.csv("Metadata_GS_CU .csv")
-max.dbh<- read.csv("Max.DBH.csv")
-LMM.Meta<- read.csv("LMM_META_FINAL.csv")
+metacsv<- read.csv("Input/Metadata_GS_CU .csv")
+max.dbh<- read.csv("Input/Max.DBH.csv")
+LMM.Meta<- read.csv("Input/LMM_META_FINAL.csv")
 
 ####DBH Distribution
 #create kernel density plot to show the distribution of DBH across the four green space types 
@@ -163,22 +162,11 @@ GS.BA.means<- metacsv %>%
     mean = mean(Basal.Area),
     sd= sd(Basal.Area))
 
-write.csv(Site.Means.BA, "/home/kayleighhutttaylor/Ch. 1 Thesis Analysis/Output/site.means.ba.csv")
+write.csv(Site.Means.BA, "Output/site.means.ba.csv")
 basal.area.labs<- labs(x= "Green Space Type", y= "Basal Area (m2)")
 
 base.basal<-ggplot(LMM.Meta, aes(GS.Type, Basal.Area))
 basal.final<- base.basal +theme_classic() +geom_jitter(width= 0.3, height= 0.1, alpha= 0.8, colour= "grey") + basal.area.labs + 
   geom_errorbar(data= GS.BA.means, aes(y= mean, ymax= mean+sd, ymin= mean-sd), color= "red", width= 0.05)
 basal.final
-
-
-
-
-
-
-
-
-
-
-
 

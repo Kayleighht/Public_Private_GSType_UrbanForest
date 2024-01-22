@@ -1,13 +1,12 @@
 #### Load Packages
-Packages.3 <- c("plyr", "psych", "mobr", "benthos")
+Packages.3 <- c("dplyr", "plyr", "tidyr", "psych", "mobr", "benthos")
 lapply(Packages.3, library, character.only = TRUE)
-setwd("/home/kayleighhutttaylor/Ch. 1 Thesis Analysis/Output")
 
 ### In this script I calculate three metrics based on urban tree data: species richness, tree abundance and species evenness (PIE)
 ## I do this for metadata and each green space type (Institutional, Park, Private Yard, Street ROW)
 
 #### 1. Species Richness
-total.sp.table<- read.csv("total.sp.table.csv")
+total.sp.table<- read.csv("Output/allgs.matrix.csv")
 
 ####Calculate species richness of all site codes in metadata file
 #calculate species richness per green space type (totals)
@@ -20,16 +19,16 @@ pr.total
 sum(pr.total$RICHNESS)
 
 #calculate species richness for each site using metadata 
-site.sp.table<- read.csv("site.sp.table.csv")
+site.sp.table<- read.csv("Output/site.sp.table.csv")
 per.site.total<-ddply(site.sp.table, ~Var2, function(x) {
   data.frame(RICHNESS= sum((x[-1]>0)))
 })
 per.site.total
 ##push out to csv
-write.csv(per.site.total, "/home/kayleighhutttaylor/sr.sitetotals.csv")
+write.csv(per.site.total, "Output/sr.sitetotals.csv")
 
 #### Calculating Species Richness for each green space type and summarizing (max/min, mean, sd)
-wide.pr<-read.csv("yards.sp.wide.csv")
+wide.pr<-read.csv("Output/yards.sp.wide.csv")
 
 ####Private Yards
 pr.r<-ddply(wide.pr,~Var2,function(x) {
@@ -40,7 +39,7 @@ pr.r
 describe(pr.r$RICHNESS)
 
 ####Street ROW 
-wide.row<- read.csv("row.wide.matrix.csv")
+wide.row<- read.csv("Output/row.wide.matrix.csv")
 row.r<-ddply(wide.row,~Var2,function(x) {
   data.frame(RICHNESS=sum(x[-1]>0))
 })
@@ -49,7 +48,7 @@ describe(row.r$RICHNESS)
 
 ####Parks
 ##Park parcel-scale
-wide.park<- read.csv("parks.wide.matrix.csv")
+wide.park<- read.csv("Output/parks.wide.matrix.csv")
 park.r<-ddply(wide.park,~Var2,function(x) {
   data.frame(RICHNESS=sum(x[-1]>0))
 })
@@ -57,7 +56,7 @@ park.r<-ddply(wide.park,~Var2,function(x) {
 describe(park.r$RICHNESS)
 
 #Park site-scale
-ar.park.w<- read.csv("site.park.wide.matrix.csv")
+ar.park.w<- read.csv("Output/site.park.wide.matrix.csv")
 park.s.r<-ddply(ar.park.w,~Var2,function(x) {
   data.frame(RICHNESS=sum(x[-1]>0))
 })
@@ -66,7 +65,7 @@ describe(park.s.r$RICHNESS)
 
 ####Institutional
 ##Insitutional parcel-scale
-wide.in<- read.csv("in.wide.matrix.csv")
+wide.in<- read.csv("Output/in.wide.matrix.csv")
 in.r<-ddply(wide.in,~Var2,function(x) {
   data.frame(RICHNESS=sum(x[-1]>0))
 })
@@ -75,7 +74,7 @@ in.r
 describe(in.r$RICHNESS)
 
 #Institutional site-scale
-in.ar.w<- read.csv("site.in.wide.matrix.csv")
+in.ar.w<- read.csv("Output/site.in.wide.matrix.csv")
 in.s.r<-ddply(in.ar.w,~Var2,function(x) {
   data.frame(RICHNESS=sum(x[-1]>0))
 })
@@ -86,20 +85,20 @@ describe(in.s.r$RICHNESS)
 
 ####Calculate tree abundance of all site codes in metadata file
 #calculate tree abundance per green space type (totals)
-total.sp.table<- read.csv("allgs.matrix.csv")
+total.sp.table<- read.csv("Output/allgs.matrix.csv")
 abund.total<-ddply(total.sp.table, ~Var2, function(x) {
   data.frame(ABUNDANCE=sum(x[-1]))  
 })
 abund.total
 
 #calculate tree abundance for each site using metadata 
-site.sp.total<- read.csv("site.sp.table.csv")
+site.sp.total<- read.csv("Output/site.sp.table.csv")
 per.site.total.ab<-ddply(site.sp.table, ~Var2, function(x) {
   data.frame(ABUNDANCE= sum(x[-1]))
 })
 per.site.total.ab<-as.data.frame(per.site.total.ab)
 #create csv file
-write.csv(per.site.total.ab, "/home/kayleighhutttaylor/Ch. 1 Thesis Analysis/Output/sr.sitetotals.ab.csv")
+write.csv(per.site.total.ab, "Output/sr.sitetotals.ab.csv")
 
 ####Park
 ##Park parcel-scale
@@ -157,7 +156,7 @@ sum(abund.pr$ABUNDANCE)
 ##Institutional site-scale
 
 #load and format datafile
-in.site.data<- read.csv("site.in.wide.matrix.csv")
+in.site.data<- read.csv("Output/site.in.wide.matrix.csv")
 #replace site column as rownames
 rownames(in.site.data)<- in.site.data$Var2
 in.site.data<- subset(in.site.data, select = -c(Var2))
@@ -175,7 +174,7 @@ describe(pie.site.s.in)
 mean(pie.site.s.in$pie.site.s.in)
 ##Institutional parcel-scale
 #load and format datafile
-in.data<- read.csv("in.wide.matrix.csv")
+in.data<- read.csv("Output/in.wide.matrix.csv")
 #replace parcel column as rownames
 rownames(in.data)<- in.data$Var2
 in.data<- subset(in.data, select = -c(Var2))
@@ -185,7 +184,7 @@ pie.in<- as.data.frame(calc_PIE(in.data))
 ####Park
 ##Parks site-scale
 #load and format datafile
-park.site.data<- read.csv("site.park.wide.matrix.csv")
+park.site.data<- read.csv("Output/site.park.wide.matrix.csv")
 #replace site column as rownames
 rownames(park.site.data)<- park.site.data$Var2
 park.site.data<- subset(park.site.data, select = -c(Var2))
@@ -201,7 +200,7 @@ describe(pie.site.park)
 
 #### Private Yards 
 #load and format datafile
-private.data.raw<- read.csv("yards.sp.wide.csv")
+private.data.raw<- read.csv("Output/yards.sp.wide.csv")
 #replace site column as rownames
 rownames(private.data.raw)<- private.data.raw$Var2
 private.data<- subset(private.data.raw, select = -c(Var2))
@@ -214,7 +213,7 @@ describe(pie.site.pr)
 
 #### Street ROW
 #load and format datafile
-row.data<- read.csv("row.wide.matrix.csv")
+row.data<- read.csv("Output/row.wide.matrix.csv")
 #replace site column as rownames
 rownames(row.data)<- row.data$Var2
 row.data<- subset(row.data, select = -c(Var2))
@@ -228,7 +227,7 @@ sd(pie.site.row$pie.site.row)
 
 #### creating a summary for all sites from metadata for linear mixed models
 #load and format datafile
-site.sp.tot.mat<- read.csv("site.sp.tot.mat.csv")
+site.sp.tot.mat<- read.csv("Output/site.sp.tot.mat.csv")
 
 pie.tot.sites<- as.data.frame(calc_PIE(site.sp.tot.mat))
 pie.tot.sites.nona<-pie.tot.sites$'calc_PIE(site.sp.tot.mat)' %>% replace_na(1.000000)
@@ -237,12 +236,12 @@ pie.tot.sites<- cbind(pie.tot.sites, pie.tot.sites.nona)
 pie.tot.sites$site_code<-site.sp.table$Var2
 pie.tot.sites
 ##push out to csv
-write.csv(pie.tot.sites, "/home/kayleighhutttaylor/Ch. 1 Thesis Analysis/Output/pie.site.totals.csv")
+write.csv(pie.tot.sites, "Output/pie.site.totals.csv")
 
 #### Calculating PIE Species Evenness at the scale of the neighbourhood
 ## Each calculation uses the species pool of the entire green space type (e.g. all species in all parks)
 #load metadata
-total.sp.table<-read.csv("allgs.matrix.csv")
+total.sp.table<-read.csv("Output/allgs.matrix.csv")
 
 ####Private Yards
 #remove other green space types from matrix
@@ -282,7 +281,7 @@ calc_PIE(row.n.matrix)
 #### Calculating PIE Species Evenness at the scale of the parcel (scale of management)
 
 #load metadata file with parcel-scale data
-metacsv<-read.csv("Metadata_GS_CU.csv")
+metacsv<-read.csv("Input/Metadata_GS_CU .csv")
 #created a table to create a matrix 
 parcel.sp.table<- table(metacsv$Site.Code, metacsv$Species.Code)
 parcel.sp.table<- as.data.frame(parcel.sp.table)

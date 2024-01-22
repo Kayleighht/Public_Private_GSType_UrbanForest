@@ -1,5 +1,5 @@
 #### Load Packages
-Packages.2 <- c("tidyr")
+Packages.2 <- c("tidyr", "dplyr")
 lapply(Packages.2, library, character.only = TRUE)
 
 #For missing Maximum DBH values I followed the same procedure as the original public tree dataset
@@ -7,15 +7,14 @@ lapply(Packages.2, library, character.only = TRUE)
 #Below, I calculate maximum DBH values for the necessary tree species
 
 #read in and format datafile
-metacsv<- read.csv("Metadata_GS_CU .csv")
+metacsv<- read.csv("Input/Metadata_GS_CU .csv")
 site.sp.table<- table(metacsv$Species.Code, metacsv$Subsite.Code)
 site.sp.table<- as.data.frame(site.sp.table)
 site.sp.table
 
 ##formatting data for calculations
 #here I am using an OUTPUT file that I created in script one. This file is sourced in the folder "output" rather than "input"
-setwd("/home/kayleighhutttaylor/Ch. 1 Thesis Analysis/Output")
-total.sp.table<-read.csv("allgs.matrix.csv")
+total.sp.table<-read.csv("Output/allgs.matrix.csv")
 sp.tot.ab<- as.data.frame(t(total.sp.table))
 colnames(sp.tot.ab)<- c("Inst", "Park", "Private", "Row")
 sp.tot.ab<-sp.tot.ab[-1,]
@@ -56,7 +55,3 @@ quantile(loxy$DBH..2020.., 0.95)
 #subset viburnum letago
 nannyberry<- filter(metacsv, Species.Code == "VILE")
 quantile(nannyberry$DBH..2020.., 0.95)
-
-
-
-
