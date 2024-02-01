@@ -1,0 +1,169 @@
+This data and metadata accompanies Private trees contribute uniquely to urban forest diversity, structure and service-based traits, 
+Hutt-Taylor and Ziter. (Urban Forestry and Urban Greening), 2022
+
+dataset: Clean_Inst_Cu.csv
+This dataset lists all tree data for institutional sites (schools and places of worship) in our study area. 
+Site: official name of institution site
+Site Code: site ID (institutionalcode-number)
+Species Code: four letter code for genus and species (some exceptions- see LMM_METAL_FINAL.csv)
+Latitude: in decimals
+Longitude: in decimals
+DBH: tree DBH in m
+DBH Round:tree DBH rounded to the nearest m
+Index: counting column (not meaningful)
+
+
+dataset: Clean_Park_Cu.csv
+This dataset lists all tree data for park sites in our study area. 
+Sample Site: official park name
+Site Code: site ID (parkcode-number)
+Species Code: four letter code for genus and species (some exceptions- see LMM_METAL_FINAL.csv)
+Species Latin: tree species latin name
+Species Common: tree species common name
+DBH (2020): tree DBH in m
+DBH Round:tree DBH rounded to the nearest cm
+Latitude: in decimals
+Longitude: in decimals
+Index: counting column (not meaningful)
+
+dataset: Clean_Private_Cu.csv
+This dataset lists all tree data for park sites in our study area. 
+Yard Code: Yard ID (yardcode-number)
+Species Code: four letter code for genus and species (some exceptions- see LMM_METAL_FINAL.csv)
+Species Latin: tree species latin name
+Sampled Area (ha): Sampled yard area in hectares
+DBH: tree DBH in m
+DBH Round:tree DBH rounded to the nearest cm
+Latitude: NA (not measured since community science)
+Longitude: NA (not measured since community science)
+Index: counting column (not meaningful)
+
+dataset: Clean_ROW_Cu.csv
+This dataset lists all tree data for street segments in our study area. 
+fid: unique identifier given in QGIS
+Site Code: Site ID (streetcode-number)
+Species Code: four letter code for genus and species (some exceptions- see LMM_METAL_FINAL.csv)
+Species Latin: tree species latin name
+Longitude: in decimals
+Latitude: in decimals
+DBH (2020): tree DBH in m
+DBH Round:tree DBH rounded to the nearest cm
+Index: counting column (not meaningful)
+
+dataset: Clean_ROW_Cu_Only_0.05.csv
+This dataset lists all tree data for street segments of 0.05 ha only in our study area. 
+(NOT USED IN ANALYSIS)
+fid: unique identifier given in QGIS
+Site Code: Site ID (streetcode-number)
+Species Code: four letter code for genus and species (some exceptions- see LMM_METAL_FINAL.csv)
+Species Latin: tree species latin name
+Longitude: in decimals
+Latitude: in decimals
+DBH (2020): tree DBH in m
+DBH Round:tree DBH rounded to the nearest cm
+Index: counting column (not meaningful)
+
+dataset: Clean_Row_CU_Excl.csv
+This dataset lists all tree data for street segments excluding segments >0.05 ha in our study area. 
+(NOT USED IN ANALYSIS)
+fid: unique identifier given in QGIS
+Site Code: Site ID (streetcode-number)
+Species Code: four letter code for genus and species (some exceptions- see LMM_METAL_FINAL.csv)
+Species Latin: tree species latin name
+Longitude: in decimals
+Latitude: in decimals
+DBH (2020): tree DBH in m
+DBH Round:tree DBH rounded to the nearest cm
+Index: counting column (not meaningful)
+
+dataset: Clean_Subsite_Inst_Cu.csv
+This dataset lists all tree data for institutional subsites (sites within one institutional site) in our study area. 
+fid: unique identifier given in QGIS
+Site Code: Site ID (institutionalcode-number)
+Species Code: four letter code for genus and species (some exceptions- see LMM_METAL_FINAL.csv)
+Species Latin: tree species latin name
+Latitude: in decimals
+Longitude: in decimals
+layer: unique polygon code given in QGIS
+DBH: tree DBH in m
+DBH Round:tree DBH rounded to the nearest cm
+Index: counting column (not meaningful)
+
+dataset: Clean_Subsite_Park_Cu.csv
+This dataset lists all tree data for park subsites (sites within one park site) in our study area.
+fid: unique identifier given in QGIS
+Sample Site: official park name
+Site Code: Site ID (parkcode-number)
+Species Code: four letter code for genus and species (some exceptions- see xxx.csv)
+Species Latin: tree species latin name
+Species Common: tree species common name
+DBH (2020): tree DBH in m
+DBH Round:tree DBH rounded to the nearest m
+Latitude: in decimals
+Longitude: in decimals
+layer: unique polygon code given in QGIS 
+INDEX: counting column (not meaningful)
+
+dataset: LMM_META_FINAL.csv
+This dataset combines data from all green space types and their associated area, diversity and structure metrics
+for linear mixed models
+GS.Type: code identifier for private, institutional, park or street (ROW)
+Subsite.Code: unique code for subsite (sitecode.subsitecode)
+Site.Code: unique code for sample site
+S.R: species richness
+Tree.Ab: species abundance
+PIE: species evenness
+Area: site area in hectares
+
+dataset: LMM_META_FINAL_EV_RANGE.csv
+This dataset combines data from all green space types and their associated area, diversity and structure metrics
+for linear mixed models (NOT USED FOR ANALYSIS)
+Index: counting column (not meaningful)
+GS.Type: code identifier for private, institutional, park or street (ROW)
+Subsite.Code: unique code for subsite (sitecode.subsitecode)
+GIS.Code: unique code used in QGIS
+SR: species richness
+Subsite.Code: subsite ID (siteintitials-number)
+Abund: species abundance
+PIE: species evenness
+Area: site area in hectares
+Basal.Area: basal area of site
+
+dataset: Max.DBH.csv
+This dataset contains data on the expected maximum DBH of tree species in our dataset
+Latin Name: tree species latin name
+Species Code: four letter code for genus and species (some exceptions- see LMM_METAL_FINAL.csv)
+Max DBH: maximum DBH in metres
+
+dataset: Metadata_GS_Cu.csv
+This dataset combines data from all green space types combined
+fid: unique identifier given in QGIS
+Sample Site: official green space name
+Site.Code: unique code for sample site
+Species Latin: trees species latin name
+Genus: tree genus
+Latitude: in decimals
+Longitude: in decimals
+DBH (2020): tree DBH in metres
+DBH Round:tree DBH rounded to the nearest cm
+Basal.Area: tree basal area in hectares
+Subsite Code: unique code for subsite (sitecode.subsitecode)
+GS Type: green space type (park, institutional, private or street ROW)
+Index:counting column (not meaningful)
+
+dataset:PRIVATE_AREA.csv
+This dataset contains parcel area data for each private yard sampled in hectares
+Private Site Code: unique code for site (yardcode-number) 
+Sample Area (ha): parcel area in hectares
+Index:counting column (not meaningful)
+
+dataset:ROW_AREA.csv
+This dataset contains the area data for street segments sampled in hectares
+Street_Code: unique code for site (streetcode-number)
+Length (m): length of street segment in metres
+Area (m2): area of street segment in metres squared
+Area (ha): area of street segment converted to hectares
+Index:counting column (not meaningful)
+
+
+
